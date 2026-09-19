@@ -1,0 +1,60 @@
+# A customer-support assistant with a retrieval index, a refund tool and a hosted model.
+# Deliberately weak posture: used to demonstrate findings across all frameworks.
+name: Customer Support Assistant
+description: Public chat assistant that answers billing questions and can issue refunds.
+multi_tenant: true
+high_stakes: false
+
+components:
+  - id: web_chat
+    name: Web chat widget
+    type: ui
+    trust_zone: internet
+  - id: gateway
+    name: API gateway
+    type: api
+    trust_zone: dmz
+    data_classes: [pii]
+  - id: support_agent
+    name: Support agent orchestrator
+    type: agent
+    trust_zone: internal
+    data_classes: [pii, secrets]
+  - id: hosted_llm
+    name: Hosted language model API
+    type: llm
+    trust_zone: third_party
+  - id: kb_index
+    name: Knowledge base vector index
+    type: vector_store
+    trust_zone: internal
+    data_classes: [confidential, pii]
+  - id: refund_tool
+    name: Refund tool
+    type: tool
+    trust_zone: internal
+    capabilities: [write, payments]
+  - id: crm
+    name: CRM database
+    type: data_store
+    trust_zone: internal
+    data_classes: [pii]
+
+flows:
+  - {source: web_chat, target: gateway, data: [pii], authenticated: false, encrypted: true}
+  - {source: gateway, target: support_agent, data: [pii], authenticated: false, encrypted: false}
+  - {source: support_agent, target: hosted_llm, data: [pii], authenticated: true, encrypted: true}
+  - {source: hosted_llm, target: support_agent, data: [pii], authenticated: true, encrypted: true}
+  - {source: kb_index, target: support_agent, data: [confidential], authenticated: true, encrypted: true}
+  - {source: support_agent, target: refund_tool, data: [pci], authenticated: true, encrypted: true}
+  - {source: support_agent, target: crm, data: [pii], authenticated: true, encrypted: true}
+
+controls:
+  input_filtering: partial
+  rate_limiting: implemented
+  logging_monitoring: partial
+  dependency_scanning: implemented
+  pii_redaction: partial
+  use_case_documented: implemented
+  access_control_on_data: absent
+  human_approval: absent

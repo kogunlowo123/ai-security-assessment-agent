@@ -1,0 +1,73 @@
+# An internal research assistant with defence in depth. Used to show a strong posture.
+name: Internal Research Assistant
+description: Employee-only assistant that summarises internal documents; read-only tools.
+multi_tenant: false
+high_stakes: false
+
+components:
+  - id: portal
+    name: Employee portal
+    type: ui
+    trust_zone: dmz
+  - id: assistant
+    name: Research agent
+    type: agent
+    trust_zone: internal
+    data_classes: [internal]
+  - id: model
+    name: Self-hosted language model
+    type: llm
+    trust_zone: internal
+  - id: docs_index
+    name: Document index
+    type: vector_store
+    trust_zone: internal
+    data_classes: [internal, confidential]
+  - id: search_tool
+    name: Read-only search tool
+    type: tool
+    trust_zone: internal
+    capabilities: [read]
+
+flows:
+  - {source: portal, target: assistant, data: [internal], authenticated: true, encrypted: true}
+  - {source: assistant, target: model, data: [internal], authenticated: true, encrypted: true}
+  - {source: model, target: portal, data: [internal], authenticated: true, encrypted: true}
+  - {source: docs_index, target: assistant, data: [confidential], authenticated: true, encrypted: true}
+  - {source: assistant, target: search_tool, data: [internal], authenticated: true, encrypted: true}
+
+controls:
+  input_filtering: implemented
+  prompt_isolation: implemented
+  rag_content_screening: implemented
+  output_validation: implemented
+  output_encoding: implemented
+  pii_redaction: implemented
+  data_loss_prevention: implemented
+  access_control_on_data: implemented
+  data_retention_policy: implemented
+  third_party_review: implemented
+  dependency_scanning: implemented
+  model_provenance: implemented
+  sbom: implemented
+  training_data_validation: implemented
+  data_integrity_monitoring: implemented
+  least_privilege_tools: implemented
+  tool_allowlist: implemented
+  human_approval: implemented
+  sandboxed_execution: implemented
+  secrets_out_of_prompts: implemented
+  prompt_leak_testing: implemented
+  tenant_isolation: implemented
+  grounding_citations: implemented
+  human_review_high_stakes: implemented
+  rate_limiting: implemented
+  token_budgets: implemented
+  cost_monitoring: implemented
+  logging_monitoring: implemented
+  incident_response: implemented
+  red_team_testing: implemented
+  model_evaluation: implemented
+  governance_policy: implemented
+  use_case_documented: implemented
+  impact_assessment: implemented
