@@ -488,3 +488,8 @@ Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 ## License
 
 Released under the [MIT License](LICENSE).
+
+<!-- architecture -->
+## Architecture
+
+![Architecture diagram](docs/architecture.svg)
