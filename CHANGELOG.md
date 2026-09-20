@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- Container image set an unrelated data directory variable. It now sets `AISA_HISTORY_DIR=/data/history`
+  and defines a health check.
+
 ## [0.1.0] - 2026-09-19
 
 ### Added

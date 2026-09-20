@@ -76,7 +76,7 @@ class CheckRegistry:
         return list(self._checks.values())
 
 
-# -- applicability helpers ---------------------------------------------------------------------
+# Applicability helpers
 
 
 def _nothing(manifest: SystemManifest, profile: SystemProfile) -> list[str]:
@@ -165,7 +165,7 @@ def _sensitive_or_crossing_flows(manifest: SystemManifest, profile: SystemProfil
     )
 
 
-# -- severity adjustments ----------------------------------------------------------------------
+# Severity adjustments
 
 
 def _adjust_injection(manifest: SystemManifest, profile: SystemProfile, affected: list[str]) -> int:
@@ -243,7 +243,7 @@ def _adjust_unencrypted_sensitive(
     return int(any(not f.encrypted and SENSITIVE_DATA & set(f.data) for f in manifest.flows))
 
 
-# -- architecture evaluators ---------------------------------------------------------------------
+# Architecture evaluators
 
 
 def _eval_authentication(
@@ -280,7 +280,7 @@ def _eval_encryption(
     return (len(relevant) - len(failing)) / len(relevant) if relevant else 1.0, evidence
 
 
-# -- built-in checks -----------------------------------------------------------------------------
+# Built-in checks
 
 
 def default_registry() -> CheckRegistry:

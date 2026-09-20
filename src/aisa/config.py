@@ -13,7 +13,11 @@ class Settings(BaseSettings):
     """Application settings. API keys are :class:`SecretStr` and never appear in ``repr``."""
 
     model_config = SettingsConfigDict(
-        env_prefix="AISA_", env_file=".env", env_file_encoding="utf-8", extra="ignore"
+        env_prefix="AISA_",
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+        populate_by_name=True,
     )
 
     # Optional narrative summary
