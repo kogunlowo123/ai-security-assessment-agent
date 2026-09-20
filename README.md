@@ -1,9 +1,5 @@
 # AI Security Assessment Agent
 
-![Banner](docs/banner.png)
-
-> If this project is useful, a star helps other engineers find it.
-
 A multi-agent tool that assesses the security posture of an AI application. You describe the system in
 a short manifest (components, data flows, trust zones and which safeguards exist). Seven cooperating
 agents then inventory it, model its threats, run 20 checks mapped to the OWASP Top 10 for LLM
@@ -215,7 +211,7 @@ ai-security-assessment-agent/
 
 ## Installation
 
-Requirements: Python 3.10 or newer.
+Requirements: Python 3.10 or newer (CI runs 3.10 to 3.13).
 
 ```bash
 git clone <repository-url>
@@ -362,6 +358,16 @@ The model receives aggregate facts and sanitised labels only, never raw manifest
 contains a number that is not in those facts, is empty or oversized, or the provider fails, the
 deterministic template summary is used instead.
 
+### 8. Container
+
+```bash
+docker build -t ai-security-assessment-agent .
+docker run --rm -v "$PWD:/work:ro" ai-security-assessment-agent assess /work/manifest.yaml --out /data/report
+```
+
+The image runs as a non-root user (uid 10001). `AISA_HISTORY_DIR` defaults to `/data/history`; mount a
+volume at `/data` to keep history between runs.
+
 ## Manifest reference
 
 ```yaml
@@ -492,8 +498,3 @@ Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 ## License
 
 Released under the [MIT License](LICENSE).
-
-<!-- architecture -->
-## Architecture
-
-![Architecture diagram](docs/architecture.svg)
