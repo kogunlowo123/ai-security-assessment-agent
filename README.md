@@ -1,5 +1,9 @@
 # AI Security Assessment Agent
 
+![Banner](docs/banner.png)
+
+> If this project is useful, a star helps other engineers find it.
+
 A multi-agent tool that assesses the security posture of an AI application. You describe the system in
 a short manifest (components, data flows, trust zones and which safeguards exist). Seven cooperating
 agents then inventory it, model its threats, run 20 checks mapped to the OWASP Top 10 for LLM
