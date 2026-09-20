@@ -1,5 +1,7 @@
 # AI Security Assessment Agent
 
+**Built by [Citadel Cloud Management](https://www.linkedin.com/company/citadel-cloud-management/)** — follow on LinkedIn for more engineering work like this.
+
 A multi-agent tool that assesses the security posture of an AI application. You describe the system in
 a short manifest (components, data flows, trust zones and which safeguards exist). Seven cooperating
 agents then inventory it, model its threats, run 20 checks mapped to the OWASP Top 10 for LLM
