@@ -162,7 +162,6 @@ records in [docs/adr](docs/adr).
 ```
 ai-security-assessment-agent/
 ├── .github/
-│   ├── dependabot.yml
 │   └── workflows/
 │       ├── ci.yml                    # lint, format, types, tests, audit, build
 │       └── codeql.yml
@@ -429,7 +428,7 @@ Read from `AISA_*` environment variables and an optional `.env` file. See [.env.
 | Model output that invents facts | Numbers in the narrative must appear in the supplied facts, otherwise the template is used |
 | Path manipulation | Report file names are fixed (`assessment.md`, `.json`, `.sarif`) and never derive from the manifest |
 | Markdown injection | User-controlled text is escaped in report cells |
-| Vulnerable dependencies | `pip-audit`, Dependabot and CodeQL in CI |
+| Vulnerable dependencies | `pip-audit` and CodeQL in CI |
 | Container | Multi-stage build, non-root user |
 
 See [SECURITY.md](SECURITY.md) for the policy and how to report a vulnerability.
@@ -462,8 +461,7 @@ python -m pytest --cov --cov-report=term-missing
 | Dependency audit | `pip-audit` against `requirements.txt` |
 | Build validation | Builds sdist and wheel, `twine check`, builds and smoke-tests the Docker image |
 
-`.github/workflows/codeql.yml` runs CodeQL on pushes, pull requests and weekly. Dependabot proposes
-weekly updates.
+`.github/workflows/codeql.yml` runs CodeQL on pushes, pull requests and weekly.
 
 ## Limitations
 

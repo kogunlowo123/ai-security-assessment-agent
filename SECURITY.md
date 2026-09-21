@@ -43,7 +43,7 @@ declared manifest and states that limit; see the README.
 | Path traversal via system name | Fixed report file names; history file names are slugified | `reporting/__init__.py`, `history.py` |
 | Markdown or HTML injection in reports | Table cells escaped | `reporting/markdown.py` |
 | Upstream instability | Bounded retries on 429 and 5xx only | `retry.py`, `providers/http.py` |
-| Vulnerable dependencies | `pip-audit`, Dependabot, CodeQL | `.github/` |
+| Vulnerable dependencies | `pip-audit`, CodeQL | `.github/` |
 | Container | Multi-stage build, non-root user | `Dockerfile` |
 
 ## Known limitations
